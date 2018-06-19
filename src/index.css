@@ -5,3 +5,9 @@ body {
   /*background with linear gradient*/
   background: linear-gradient(67deg, rgba(51, 199, 130, 0.555),rgba(53, 53, 179, 0.705))
 }
+
+
+button {
+	cursor: pointer;
+}
+
