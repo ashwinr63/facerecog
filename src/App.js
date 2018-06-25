@@ -13,8 +13,8 @@ const app = new Clarifai.App({
 });
 
 
-const particleOption = 
-	{
+const particleOption =
+{
 	particles: {
 		number: {
 			value: 30,
@@ -32,40 +32,66 @@ class App extends Component {
 		this.state = {
 			input: '',
 			imageURL: '',
-
+			box: {},
 		}
 	}
+
+	calculateFaceLocation = (data) => {
+
+		// eslint-disable-next-line
+		const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
+
+		const image = document.getElementById('inputImage');
+
+		const width = Number(image.width);
+
+		const height = Number(image.height);
+
+		return {
+			leftCol: clarifaiFace.left_col * width,
+			topRow: clarifaiFace.top_row * height,
+			rightCol: width - (clarifaiFace.right_col * width),
+			bottomRow: height - (clarifaiFace.bottom_row * height)
+		}
+		//console.log(width, height);
+
+	}
+
+	displayFaceBox = (box) => {
+		console.log(box)
+		this.setState({box: box})
+	}
+	
+	
 	onInputChange = (event) => {
-		this.setState({input: event.target.value})
+		this.setState({ input: event.target.value })
 	}
 
 
 	onButtonSubmit = () => {
-		this.setState({imageURL: this.state.input});
-		app.models.predict(Clarifai.FACE_DETECT_MODEL,this.state.input).then(
-			function (response) {
-				// do something with response
-				console.log(response.outputs[0]);
-			},
-			function (err) {
-				// there was an error
-			}
+		this.setState({ imageURL: this.state.input });
+		app.models
+			.predict(
+				Clarifai.FACE_DETECT_MODEL,
+				this.state.input)
+			// do something with response
+			.then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
+			.catch(err => console.log(err));
+	}
+	render() {
+		return (
+			<div className="App">
+				<Particles className='particles'
+					params={particleOption}
+				/>
+				<Navigation />
+				<Logo />
+				<Rank />
+				<ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit} />
+				<FaceRecognition box={this.state.box} imageURL={this.state.imageURL} />
+			</div>
 		);
 	}
-  render() {
-    return (
-      <div className="App">
-			<Particles className='particles'
-				params={particleOption}
-			/>
-       <Navigation/>
-	    <Logo />
-		<Rank/>
-	   <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
-			<FaceRecognition imageURL={this.state.imageURL}/> 
-      </div>
-    );
-  }
 }
 
 export default App;
