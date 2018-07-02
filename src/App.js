@@ -40,7 +40,7 @@ class App extends Component {
 		}
 	}
 
-	calculateFaceLocation = (data) => {
+		calculateFaceLocation = (data) => {
 
 		// eslint-disable-next-line
 		const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
@@ -58,7 +58,6 @@ class App extends Component {
 			bottomRow: height - (clarifaiFace.bottom_row * height)
 		}
 		//console.log(width, height);
-
 	}
 
 	displayFaceBox = (box) => {
