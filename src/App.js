@@ -96,9 +96,21 @@ class App extends Component {
 			.then(response => {
 				if(response)
 					{
-			   		fetch('http://localhost:5000/image')
+			   		fetch('http://localhost:3001/image', {
+						   method: 'put',
+						   headers: {
+							   'content-type': 'application/json'
+						   },
+						  body: JSON.stringify({
+							  id: this.state.user.id
+						  }) 
+					   })
+					   .then(response => response.json())
+					   .then(count => {
+						   this.setState(Object.assign(this.state.user, {entries: count}))
+					   })
 					}
-					this.displayFaceBox(this.calculateFaceLocation(response))
+				this.displayFaceBox(this.calculateFaceLocation(response))
 			})
 			.catch(err => console.log(err));
 	}
@@ -132,8 +144,10 @@ class App extends Component {
 					</div> 
 					: (
 						route === 'SignIn'
-							? <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
-							: <Register loadUser = {this.loadUser} onRouteChange={this.onRouteChange} />
+							? <SignIn 
+							loadUser = {this.loadUser} onRouteChange={this.onRouteChange} />
+							: <Register
+							 loadUser = {this.loadUser} onRouteChange={this.onRouteChange} />
 					)
 			 	}
 			</div>
