@@ -102,7 +102,7 @@ class App extends Component {
 					fetch('http://localhost:3001/image', {
 						method: 'put',
 						headers: {
-							'content-type': 'application/json'
+							'Content-type': 'application/json'
 						},
 						body: JSON.stringify({
 							id: this.state.user.id
@@ -111,6 +111,7 @@ class App extends Component {
 						.then(response => response.json())
 						.then(count => {
 							this.setState(Object.assign(this.state.user, { entries: count }))
+							.catch(console.log)
 						})
 				}
 				this.displayFaceBox(this.calculateFaceLocation(response))
