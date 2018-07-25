@@ -5,7 +5,7 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
 import Particles from 'react-particles-js';
 import './App.css';
-import Clarifai from 'clarifai';
+import Clarifai from 'clarifai'
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import SignIn from './components/SignIn/SignIn';
 import Register from './components/Register/Register';
@@ -101,9 +101,7 @@ class App extends Component {
 				if (response) {
 					fetch('http://localhost:3001/image', {
 						method: 'put',
-						headers: {
-							'Content-type': 'application/json'
-						},
+						headers: { 'Content-type': 'application/json' },
 						body: JSON.stringify({
 							id: this.state.user.id
 						})
@@ -111,7 +109,7 @@ class App extends Component {
 						.then(response => response.json())
 						.then(count => {
 							this.setState(Object.assign(this.state.user, { entries: count }))
-							.catch(console.log)
+								.catch(console.log)
 						})
 				}
 				this.displayFaceBox(this.calculateFaceLocation(response))
