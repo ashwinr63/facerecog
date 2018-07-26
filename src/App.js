@@ -29,7 +29,7 @@ const initialState = {
 	input: '',
 	imageUrl: '',
 	box: {},
-	route: 'SiguIn',
+	route: 'SignIn',
 	isSignedIn: false,
 	user: {
 		name: '',
@@ -62,7 +62,7 @@ class App extends Component {
 		// eslint-disable-next-line
 		const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
 
-		const image = document.getElementById('inputImage');
+		const image = document.getElementById('inputimage');
 
 		const width = Number(image.width);
 
@@ -89,17 +89,17 @@ class App extends Component {
 
 	onPictureSubmit = () => {
 		this.setState({ imageUrl: this.state.input });
-		fetch('http://localhost:3001/imageurl', {
+		fetch('https://stormy-tor-91840.herokuapp.com/imageurl', {
 			method: 'post',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({
 				input: this.state.input
 			})
 		})
-			.then(response => response.json())
+			.then(response => console.log(response.json()))
 			.then(response => {
 				if (response) {
-					fetch('http://localhost:3001/image', {
+					fetch('https://stormy-tor-91840.herokuapp.com/image', {
 						method: 'put',
 						headers: { 'Content-Type': 'application/json' },
 						body: JSON.stringify({
