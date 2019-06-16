@@ -5,7 +5,6 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
 import Particles from 'react-particles-js';
 import './App.css';
-//import Clarifai from 'clarifai'
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import SignIn from './components/SignIn/SignIn';
 import Register from './components/Register/Register';
@@ -89,7 +88,7 @@ class App extends Component {
 
 	onPictureSubmit = () => {
 		this.setState({ imageUrl: this.state.input });
-		fetch('http://localhost:3001/imageurl', {
+		fetch('https://still-wave-13309.herokuapp.com/imageurl', {
 			method: 'post',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({
@@ -99,7 +98,7 @@ class App extends Component {
 			.then(response => console.log(response.json()))
 			.then(response => {
 				if (response) {
-					fetch('http://localhost:3001/image', {
+					fetch('https://still-wave-13309.herokuapp.com/image', {
 						method: 'put',
 						headers: { 'Content-Type': 'application/json' },
 						body: JSON.stringify({

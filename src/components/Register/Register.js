@@ -9,17 +9,20 @@ class Register extends React.Component {
 			name: ''
 		}
 	}
-	onEmailChange = (event) => {
-		this.setState({email: event.target.value})
-	}
-	onPasswordChange = (event) => {
-		this.setState({password: event.target.value})
-	}
 	onNameChange = (event) => {
 		this.setState({name: event.target.value})
-	}
+	  }
+
+	  onEmailChange = (event) => {
+		this.setState({email: event.target.value})
+	  }
+
+	  onPasswordChange = (event) => {
+		this.setState({password: event.target.value})
+	  }
+
 	onSubmitSignIn = () => {
-		fetch('http://localhost:3001/register',{
+		fetch('https://still-wave-13309.herokuapp.com/register', {
 			method: 'post',
 			headers :{'Content-type': 'application/json'},
 			body: JSON.stringify({
@@ -33,12 +36,12 @@ class Register extends React.Component {
 			if(user.id) {
 				this.props.loadUser(user)
 				this.props.onRouteChange('home');
-			} 	
+			}
 		})
 	}
 	render() {
-		
-		return ( 
+
+		return (
 		<article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw7 shadow-4 center">
 		<main className="pa4 black-80">
   			<div className="measure">
@@ -46,7 +49,7 @@ class Register extends React.Component {
    	 		  <legend className="f2 fw6 ph0 mh0">Register</legend>
 				<div className="mt3">
 				<label className="db fw6 lh-copy f6" htmlFor="name">Name</label>
-				<input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="text" name="name" id="name" 
+				<input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="text" name="name" id="name"
 				onChange = {this.onNameChange}/>
 				</div>
     		   <div className="mt3">
@@ -55,7 +58,7 @@ class Register extends React.Component {
 		   	  	 </div>
     			  <div className="mv3">
        			 <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
-       			 <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password" id="password" onChange = {this.onPasswordChange}/>	
+       			 <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password" id="password" onChange = {this.onPasswordChange}/>
      			 </div>
    			 </fieldset>
   			   <div className="">
@@ -69,7 +72,7 @@ class Register extends React.Component {
 		</article>
 	);
 	}
-	
+
 }
 
 export default Register;
